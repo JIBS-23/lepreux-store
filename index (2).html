@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="_h4J2gzX3WP-LMvEV9IVB9zdTpQZNB9IG8xrabXcGmM" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lepreux·Store — Produits Digitaux</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0a0a0a;--bg:#f9f6f1;--gold:#b8963e;--gold2:#d4af6a;--soft:#ede8df;--muted:#888078;--card:#fff;--border:#e5e0d8;--red:#c0392b;--green:#27ae60}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600}
+.nav-logo span{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-link{font-size:0.82rem;text-decoration:none;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:500;transition:color 0.2s}
+.nav-link:hover{color:var(--ink)}
+.cart-btn{background:var(--ink);color:#fff;border:none;padding:0.5rem 1.3rem;border-radius:2rem;font-family:'Outfit',sans-serif;font-size:0.8rem;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s}
+.cart-btn:hover{background:var(--gold)}
+.cart-count{background:var(--gold);color:var(--ink);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.admin-trigger{background:none;border:none;cursor:pointer;opacity:0.15;font-size:0.7rem;color:var(--muted);transition:opacity 0.2s;margin-left:0.5rem}
+.admin-trigger:hover{opacity:0.6}
+.hero{padding:5rem 2.5rem 4rem;text-align:center;max-width:720px;margin:0 auto}
+.hero-tag{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.2rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:3.5rem;line-height:1.1;font-weight:600;margin-bottom:1.2rem}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{font-size:0.98rem;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto 2rem}
+.hero-cta{border:1px solid var(--ink);padding:0.7rem 2.2rem;border-radius:2rem;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;background:transparent;font-family:'Outfit',sans-serif;transition:all 0.2s}
+.hero-cta:hover{background:var(--ink);color:#fff}
+.section-label{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-weight:500;text-align:center;margin-bottom:0.5rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2rem;text-align:center;margin-bottom:2rem;font-weight:600}
+.filters{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;padding:0 2rem 2.5rem}
+.f-btn{padding:0.35rem 1rem;border-radius:2rem;border:1px solid var(--border);background:transparent;font-family:'Outfit',sans-serif;font-size:0.78rem;cursor:pointer;color:var(--muted);transition:all 0.2s}
+.f-btn.active,.f-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem;padding:0 2.5rem 5rem;max-width:1150px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.09)}
+.card-img{height:175px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative}
+.card-body{padding:1.2rem}
+.card-cat{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.3rem}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;margin-bottom:0.4rem;line-height:1.3}
+.card-desc{font-size:0.81rem;color:var(--muted);line-height:1.55;margin-bottom:0.8rem}
+.includes{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:0.9rem}
+.includes span{background:var(--soft);color:var(--muted);font-size:0.68rem;padding:2px 8px;border-radius:2rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-size:1.15rem;font-weight:500}
+.price small{font-size:0.72rem;color:var(--muted);font-weight:400;margin-left:2px}
+.add-btn{background:var(--ink);color:#fff;border:none;padding:0.45rem 1.1rem;border-radius:2rem;font-family:'Outfit',sans-serif;font-size:0.78rem;cursor:pointer;transition:background 0.2s}
+.add-btn:hover{background:var(--gold)}
+.badge{position:absolute;top:10px;right:10px;background:var(--gold);color:var(--ink);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:2rem;font-weight:600}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:#fff;padding:0.8rem 1.6rem;border-radius:2rem;font-size:0.83rem;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,10,10,0.55);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg);border-radius:20px;max-width:440px;width:100%;padding:2rem;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:1.2rem;font-weight:600}
+.close-btn{background:none;border:none;cursor:pointer;float:right;font-size:1.2rem;color:var(--muted)}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0;border-bottom:1px solid var(--border);font-size:0.87rem}
+.cart-item-name{flex:1;color:var(--ink)}
+.cart-item-price{color:var(--muted);margin:0 1rem}
+.remove-btn{background:none;border:none;cursor:pointer;color:var(--muted);transition:color 0.2s}
+.remove-btn:hover{color:var(--red)}
+.cart-total{display:flex;justify-content:space-between;padding:1rem 0;font-weight:500;font-size:1rem}
+.main-btn{width:100%;padding:0.85rem;background:var(--ink);color:#fff;border:none;border-radius:2rem;font-family:'Outfit',sans-serif;font-size:0.88rem;letter-spacing:0.05em;cursor:pointer;transition:background 0.2s}
+.main-btn:hover{background:var(--gold);color:var(--ink)}
+.empty-cart{text-align:center;padding:2rem 0;color:var(--muted);font-size:0.88rem}
+.secure-note{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.7rem}
+.admin-bar{display:none;background:var(--ink);color:#fff;padding:0.6rem 2.5rem;font-size:0.8rem;align-items:center;justify-content:space-between}
+.admin-bar.visible{display:flex}
+.admin-bar em{color:var(--gold2);font-style:normal;font-weight:500}
+.admin-actions{display:flex;gap:0.8rem}
+.admin-btn{background:var(--gold);color:var(--ink);border:none;padding:0.35rem 1rem;border-radius:2rem;font-family:'Outfit',sans-serif;font-size:0.75rem;cursor:pointer;font-weight:500}
+.admin-btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.card-admin-overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(10,10,10,0.6);align-items:center;justify-content:center;gap:0.6rem}
+.admin-mode .card-img{position:relative}
+.admin-mode .card:hover .card-admin-overlay{display:flex}
+.edit-card-btn,.del-card-btn{border:none;padding:0.4rem 0.9rem;border-radius:2rem;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:500}
+.edit-card-btn{background:#fff;color:var(--ink)}
+.del-card-btn{background:var(--red);color:#fff}
+.form-group{margin-bottom:1rem}
+.form-label{font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:500;display:block;margin-bottom:0.4rem}
+.form-input{width:100%;padding:0.65rem 1rem;border:1px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.88rem;background:#fff;outline:none;transition:border 0.2s}
+.form-input:focus{border-color:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-hint{font-size:0.72rem;color:var(--muted);margin-top:0.3rem}
+.emoji-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem}
+.emoji-opt{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:#fff;transition:all 0.15s}
+.emoji-opt:hover,.emoji-opt.selected{background:var(--soft);border-color:var(--gold)}
+.color-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:0.5rem}
+.color-opt{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border 0.15s}
+.color-opt.selected{border-color:var(--ink)}
+.guide-section{background:var(--soft);padding:3rem 2.5rem}
+.guide-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;text-align:center;margin-bottom:0.5rem;font-weight:600}
+.guide-sub{text-align:center;color:var(--muted);font-size:0.88rem;margin-bottom:2rem}
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;max-width:900px;margin:0 auto}
+.guide-card{background:#fff;border-radius:14px;padding:1.2rem;border:1px solid var(--border)}
+.guide-num{font-size:1.5rem;margin-bottom:0.5rem}
+.guide-card h3{font-size:0.9rem;font-weight:500;margin-bottom:0.4rem}
+.guide-card p{font-size:0.78rem;color:var(--muted);line-height:1.55}
+.guide-card code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:0.75rem;color:var(--gold)}
+footer{text-align:center;padding:2rem;font-size:0.78rem;color:var(--muted);border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="admin-bar" id="adminBar">
+  <span>🛠 Mode Administration — <em>Tu peux ajouter, modifier et supprimer des produits</em></span>
+  <div class="admin-actions">
+    <button class="admin-btn" onclick="openAddProduct()">+ Ajouter un produit</button>
+    <button class="admin-btn secondary" onclick="exitAdmin()">Quitter l'admin</button>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">Lepreux<span>·</span>Store</div>
+  <div class="nav-right">
+    <a href="#boutique" class="nav-link">Boutique</a>
+    <a href="#guide" class="nav-link">Mode d'emploi</a>
+    <button class="cart-btn" onclick="openCart()">🛍 Panier <div class="cart-count" id="cartCount">0</div></button>
+    <button class="admin-trigger" onclick="promptAdmin()" title="Accès admin">⚙</button>
+  </div>
+</nav>
+
+<div class="hero" id="boutique">
+  <div class="hero-tag">Produits digitaux premium</div>
+  <h1>Développe ton <em>business</em> avec nos ressources</h1>
+  <p>Templates, guides, formations et kits prêts à l'emploi — pour trouver tes premiers clients sur Instagram.</p>
+  <button class="hero-cta" onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">Explorer la boutique</button>
+</div>
+
+<div class="section-label">Catalogue</div>
+<div class="section-title">Nos produits</div>
+<div class="filters" id="filters"></div>
+<div class="products" id="products"></div>
+
+<div class="toast" id="toast"></div>
+
+<!-- PANIER -->
+<div class="modal-bg" id="cartModal">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal('cartModal')">✕</button>
+    <h2>Mon panier</h2>
+    <div id="cartItems"></div>
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
+    <button class="main-btn" onclick="checkout()">Procéder au paiement →</button>
+    <p class="secure-note">🔒 Branchez Stripe ou PayPal pour activer le paiement</p>
+  </div>
+</div>
+
+<!-- LOGIN ADMIN -->
+<div class="modal-bg" id="loginModal">
+  <div class="modal" style="max-width:360px">
+    <button class="close-btn" onclick="closeModal('loginModal')">✕</button>
+    <h2>Accès admin</h2>
+    <div class="form-group">
+      <label class="form-label">Mot de passe</label>
+      <input class="form-input" type="password" id="adminPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdmin()">
+      <p class="form-hint">Mot de passe administrateur</p>
+    </div>
+    <button class="main-btn" onclick="checkAdmin()">Entrer</button>
+  </div>
+</div>
+
+<!-- FORMULAIRE PRODUIT -->
+<div class="modal-bg" id="productModal">
+  <div class="modal" style="max-width:500px">
+    <button class="close-btn" onclick="closeModal('productModal')">✕</button>
+    <h2 id="productModalTitle">Ajouter un produit</h2>
+    <div class="form-group">
+      <label class="form-label">Nom du produit *</label>
+      <input class="form-input" type="text" id="pName" placeholder="Ex: Kit Instagram Client">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description *</label>
+      <input class="form-input" type="text" id="pDesc" placeholder="Ex: Attire tes premiers clients en 30 jours">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prix (€) *</label>
+        <input class="form-input" type="number" id="pPrice" placeholder="37">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catégorie *</label>
+        <input class="form-input" type="text" id="pCat" placeholder="Kit, Template, Ebook...">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ce que ça contient (séparé par des virgules)</label>
+      <input class="form-input" type="text" id="pIncludes" placeholder="30 templates, Guide PDF, Calendrier">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Badge (optionnel)</label>
+      <input class="form-input" type="text" id="pBadge" placeholder="Bestseller, Nouveau, Top vente...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Emoji</label>
+      <div class="emoji-picker" id="emojiPicker"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Couleur de fond de la carte</label>
+      <div class="color-picker" id="colorPicker"></div>
+    </div>
+    <button class="main-btn" style="margin-top:0.5rem" onclick="saveProduct()">💾 Enregistrer</button>
+  </div>
+</div>
+
+<!-- MODE D'EMPLOI -->
+<div class="guide-section" id="guide">
+  <div class="guide-title">Mode d'emploi</div>
+  <p class="guide-sub">Gère ta boutique en quelques clics, sans toucher au code</p>
+  <div class="guide-grid">
+    <div class="guide-card">
+      <div class="guide-num">🔑</div>
+      <h3>Accéder à l'admin</h3>
+      <p>Clique sur le petit <code>⚙</code> discret en haut à droite. Entre le mot de passe <code>admin123</code>. Une barre noire apparaît en haut.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-num">➕</div>
+      <h3>Ajouter un produit</h3>
+      <p>En mode admin, clique sur <code>+ Ajouter un produit</code>. Remplis nom, description, prix, catégorie. Clique Enregistrer.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-num">✏️</div>
+      <h3>Modifier un produit</h3>
+      <p>En mode admin, passe la souris sur une carte. Deux boutons apparaissent. Clique <code>Modifier</code> pour éditer.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-num">🗑️</div>
+      <h3>Supprimer un produit</h3>
+      <p>En mode admin, survole une carte et clique <code>Supprimer</code>. Une confirmation est demandée avant la suppression.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-num">💾</div>
+      <h3>Sauvegarder sur GitHub</h3>
+      <p>Les produits sont sauvegardés dans ton navigateur. Pour les rendre permanents, re-uploade le fichier sur GitHub après chaque modification.</p>
+    </div>
+    <div class="guide-card">
+      <div class="guide-num">🔒</div>
+      <h3>Changer le mot de passe</h3>
+      <p>Dans le code, cherche <code>admin123</code> et change-le. Re-uploade sur GitHub. Fais-le dès que possible !</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 Lepreux·Store — Tous droits réservés</footer>
+
+<script>
+const ADMIN_PASSWORD='lepreux2025';
+const EMOJIS=['📲','🎯','✍️','📅','💬','📋','🎨','⚡','🔗','💼','✨','📊','📘','🏆','💡','🔥','💎','🎁','📖','🛍'];
+const COLORS=['#f0ebe0','#e8e0f0','#e0eef0','#e0f0e8','#f0e0e8','#ece8f8','#e8f0e0','#f0e8e0','#ffecd2','#e8f4fd'];
+
+let products=JSON.parse(localStorage.getItem('lp_products')||'null')||[
+  {id:1,name:"Kit Instagram Client",cat:"Kit",price:37,emoji:"📲",bg:"#f0ebe0",desc:"Attire tes premiers clients en 30 jours — même avec 0 abonné.",badge:"Bestseller",includes:["30 templates Canva","Guide PDF","Calendrier 30 jours","20 hooks"]},
+  {id:2,name:"Pack Templates Canva",cat:"Template",price:19,emoji:"🎨",bg:"#e8e0f0",desc:"30 templates carrousel, citation et story pour indépendants.",badge:"Nouveau",includes:["10 carousels","10 posts","5 stories offre","5 stories témoignage"]},
+  {id:3,name:"Guide Captions",cat:"Guide",price:12,emoji:"✍️",bg:"#e0eef0",desc:"20 hooks + 10 CTA prêts à copier-coller pour vendre en DM.",badge:null,includes:["20 hooks","10 CTA DM","Structure AIDA","Scripts story"]},
+  {id:4,name:"Calendrier Éditorial 30 Jours",cat:"Guide",price:9,emoji:"📅",bg:"#e0f0e8",desc:"Plan jour par jour : quoi poster, quand, avec quel format.",badge:null,includes:["30 idées de posts","Format par post","Piliers de contenu"]},
+  {id:5,name:"Scripts DM & Automatisation",cat:"Kit",price:24,emoji:"💬",bg:"#ece8f8",desc:"Les scripts exacts pour convertir tes abonnés en clients.",badge:null,includes:["Script accueil","Script relance","Config ManyChat"]},
+  {id:6,name:"Formation Instagram",cat:"Formation",price:97,emoji:"🎯",bg:"#e8f0e0",desc:"De 0 à tes premiers clients : la méthode complète pas à pas.",badge:"Top vente",includes:["4 modules vidéo","Templates inclus","Accès à vie","Support DM"]},
+];
+let cart=[];
+let adminMode=false;
+let activeCat='all';
+let selectedEmoji='📲';
+let selectedColor='#f0ebe0';
+let editingId=null;
+
+function saveProducts(){localStorage.setItem('lp_products',JSON.stringify(products));}
+
+function renderFilters(){
+  const cats=[...new Set(products.map(p=>p.cat))];
+  document.getElementById('filters').innerHTML=
+    `<button class="f-btn ${activeCat==='all'?'active':''}" onclick="filterCat(this,'all')">Tout</button>`+
+    cats.map(c=>`<button class="f-btn ${activeCat===c?'active':''}" onclick="filterCat(this,'${c}')">${c}</button>`).join('');
+}
+
+function renderProducts(){
+  const list=activeCat==='all'?products:products.filter(p=>p.cat===activeCat);
+  const el=document.getElementById('products');
+  if(!list.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">Aucun produit.</div>';return;}
+  el.innerHTML=list.map(p=>`
+    <div class="card">
+      <div class="card-img" style="background:${p.bg}">
+        <span>${p.emoji}</span>
+        ${p.badge?`<div class="badge">${p.badge}</div>`:''}
+        <div class="card-admin-overlay">
+          <button class="edit-card-btn" onclick="openEditProduct(${p.id})">✏️ Modifier</button>
+          <button class="del-card-btn" onclick="deleteProduct(${p.id})">🗑 Supprimer</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-title">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        ${p.includes&&p.includes.length?`<div class="includes">${p.includes.map(i=>`<span>✓ ${i}</span>`).join('')}</div>`:''}
+        <div class="card-footer">
+          <div class="price">${p.price} €<small>/ accès à vie</small></div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+ Ajouter</button>
+        </div>
+      </div>
+    </div>`).join('');
+  if(adminMode)el.classList.add('admin-mode');
+}
+
+function filterCat(btn,cat){activeCat=cat;renderFilters();renderProducts();}
+
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  if(!cart.find(x=>x.id===id))cart.push(p);
+  document.getElementById('cartCount').textContent=cart.length;
+  showToast(`"${p.name}" ajouté au panier ✓`);
+}
+function openCart(){openModal('cartModal');renderCart();}
+function renderCart(){
+  const el=document.getElementById('cartItems');
+  const tot=document.getElementById('cartTotal');
+  if(!cart.length){el.innerHTML='<div class="empty-cart">Votre panier est vide 🛍</div>';tot.textContent='0 €';return;}
+  el.innerHTML=cart.map(p=>`<div class="cart-item"><span class="cart-item-name">${p.emoji} ${p.name}</span><span class="cart-item-price">${p.price} €</span><button class="remove-btn" onclick="removeFromCart(${p.id})">✕</button></div>`).join('');
+  tot.textContent=cart.reduce((s,p)=>s+p.price,0)+' €';
+}
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);document.getElementById('cartCount').textContent=cart.length;renderCart();}
+function checkout(){showToast('Branchez Stripe ou PayPal pour activer le paiement 💳');}
+
+function promptAdmin(){openModal('loginModal');setTimeout(()=>document.getElementById('adminPwd').focus(),100);}
+function checkAdmin(){
+  if(document.getElementById('adminPwd').value===ADMIN_PASSWORD){
+    adminMode=true;closeModal('loginModal');document.getElementById('adminPwd').value='';
+    document.getElementById('adminBar').classList.add('visible');
+    document.getElementById('products').classList.add('admin-mode');
+    showToast('Mode admin activé 🛠');
+  }else{showToast('Mot de passe incorrect ❌');}
+}
+function exitAdmin(){
+  adminMode=false;document.getElementById('adminBar').classList.remove('visible');
+  document.getElementById('products').classList.remove('admin-mode');showToast('Mode admin désactivé');
+}
+
+function buildEmojiPicker(){
+  document.getElementById('emojiPicker').innerHTML=EMOJIS.map(e=>`<div class="emoji-opt ${e===selectedEmoji?'selected':''}" onclick="selectEmoji('${e}',this)">${e}</div>`).join('');
+}
+function selectEmoji(e,el){selectedEmoji=e;document.querySelectorAll('.emoji-opt').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');}
+function buildColorPicker(){
+  document.getElementById('colorPicker').innerHTML=COLORS.map(c=>`<div class="color-opt ${c===selectedColor?'selected':''}" style="background:${c}" onclick="selectColor('${c}',this)"></div>`).join('');
+}
+function selectColor(c,el){selectedColor=c;document.querySelectorAll('.color-opt').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');}
+
+function openAddProduct(){
+  editingId=null;
+  document.getElementById('productModalTitle').textContent='Ajouter un produit';
+  ['pName','pDesc','pPrice','pCat','pIncludes','pBadge'].forEach(id=>document.getElementById(id).value='');
+  selectedEmoji='📲';selectedColor='#f0ebe0';
+  buildEmojiPicker();buildColorPicker();openModal('productModal');
+}
+function openEditProduct(id){
+  const p=products.find(x=>x.id===id);editingId=id;
+  document.getElementById('productModalTitle').textContent='Modifier le produit';
+  document.getElementById('pName').value=p.name;
+  document.getElementById('pDesc').value=p.desc;
+  document.getElementById('pPrice').value=p.price;
+  document.getElementById('pCat').value=p.cat;
+  document.getElementById('pIncludes').value=(p.includes||[]).join(', ');
+  document.getElementById('pBadge').value=p.badge||'';
+  selectedEmoji=p.emoji;selectedColor=p.bg;
+  buildEmojiPicker();buildColorPicker();openModal('productModal');
+}
+function saveProduct(){
+  const name=document.getElementById('pName').value.trim();
+  const desc=document.getElementById('pDesc').value.trim();
+  const price=parseFloat(document.getElementById('pPrice').value);
+  const cat=document.getElementById('pCat').value.trim();
+  const inc=document.getElementById('pIncludes').value.trim();
+  const badge=document.getElementById('pBadge').value.trim();
+  if(!name||!desc||!price||!cat){showToast('Remplis tous les champs obligatoires ⚠️');return;}
+  const includes=inc?inc.split(',').map(x=>x.trim()).filter(Boolean):[];
+  if(editingId){
+    const i=products.findIndex(x=>x.id===editingId);
+    products[i]={...products[i],name,desc,price,cat,includes,badge:badge||null,emoji:selectedEmoji,bg:selectedColor};
+    showToast('Produit modifié ✓');
+  }else{
+    const newId=Math.max(0,...products.map(p=>p.id))+1;
+    products.push({id:newId,name,desc,price,cat,includes,badge:badge||null,emoji:selectedEmoji,bg:selectedColor});
+    showToast('Produit ajouté ✓');
+  }
+  saveProducts();closeModal('productModal');renderFilters();renderProducts();
+  if(adminMode)document.getElementById('products').classList.add('admin-mode');
+}
+function deleteProduct(id){
+  if(!confirm('Supprimer ce produit définitivement ?'))return;
+  products=products.filter(x=>x.id!==id);cart=cart.filter(x=>x.id!==id);
+  document.getElementById('cartCount').textContent=cart.length;
+  saveProducts();renderFilters();renderProducts();
+  if(adminMode)document.getElementById('products').classList.add('admin-mode');
+  showToast('Produit supprimé 🗑');
+}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+document.querySelectorAll('.modal-bg').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});});
+
+renderFilters();renderProducts();
+</script>
+</body>
+</html>
